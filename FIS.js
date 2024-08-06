@@ -10,7 +10,8 @@ const input_table_array = {
     ["beer", "diaper"],
   ],
 };
-
+//min_support of the data set
+const min_support = Math.trunc(0.4 * S1.itemset.length);
 //take input from user
 
 // const total_tid = prompt("Enter total no of TID");
@@ -24,6 +25,8 @@ const input_table_array = {
 //   }
 //   input_table_array.item.push(item_element);
 // }
+
+//creating a single array of all items for easier counting
 let array = [];
 for (const x of input_table_array.item) {
   array.push(...x);
@@ -31,20 +34,23 @@ for (const x of input_table_array.item) {
 
 let itemset = [];
 let count = [];
-// array.sort();
 
+//pushing unique elements to itemset
 for (const x of array) {
   if (!itemset.includes(x)) {
     itemset.push(x);
   }
 }
 
+//itemset 1
 const S1 = {
   itemset,
   count: [],
 };
-for (let i = 0; i < S1.itemset.length; i++) S1.count.push(Number(0));
-console.log(S1.count);
+
+for (let i = 0; i < S1.itemset.length; i++) S1.count.push(Number(0)); //initialize the count array with zeros
+
+//actual counting process
 for (let i = 0; i < S1.itemset.length; i++) {
   for (const x of array) {
     if (x === S1.itemset[i]) {
@@ -52,8 +58,10 @@ for (let i = 0; i < S1.itemset.length; i++) {
     }
   }
 }
+//displays dataset S1
 console.log(S1);
-const min_support = Math.trunc(0.4 * S1.itemset.length);
+
+//computing first frequent item set L1
 const firstItemSet = [];
 const firstItemSetCount = [];
 for (let i = 0; i < S1.itemset.length; i++) {
